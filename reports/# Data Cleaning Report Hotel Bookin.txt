@@ -1,0 +1,72 @@
+# Data Cleaning Report: Hotel Booking Demand Dataset
+
+## Executive Summary
+
+This report documents the data cleaning process performed on the **Hotel Booking Demand** dataset. The objective was to ensure data quality, remove inconsistencies, and prepare the dataset for analysis and modeling. Key actions included handling missing values, removing duplicates, and deriving meaningful features.
+
+### Key Findings and Actions Taken:
+- Missing values were found in several fields including `children` and `country`.
+- Zero-guest entries and duplicate rows were identified.
+- Cleaned dataset resulted in improved completeness and consistency.
+
+---
+
+## Data Quality Assessment
+
+### Original Dataset Characteristics
+- **Total records**: ~119,390 (as inferred)
+- **Columns**: 32
+- Mixed data types: numerical, categorical, date
+
+### Identified Issues
+| Issue                          | Affected Columns     | Severity |
+|-------------------------------|----------------------|----------|
+| Missing values                | `children`, `country`| High     |
+| Zero guest entries            | Derived (`total_guests`) | Medium   |
+| Duplicate rows                | Entire row           | High     |
+| Inconsistent data types       | Not critical         | Low      |
+
+---
+
+## Cleaning Methodology
+
+### 1. **Handling Missing Values**
+- `children`: Filled with `0` assuming missing implies no children.
+- `country`: Imputed using mode (most common value).
+  
+### 2. **Derived Features**
+- `total_guests` was calculated as:  
+  `adults + children + babies`
+
+- Rows with `total_guests == 0` were flagged as invalid.
+
+### 3. **Duplicate Removal**
+- Identified and removed exact duplicate rows using `df.drop_duplicates()`.
+
+### 4. **Visualization**
+- Heatmap of missing values created to identify patterns.
+
+---
+
+## Results and Impact
+
+### Before Cleaning
+- Missing in `children`: ~4 entries
+- Missing in `country`: Hundreds of entries
+- Duplicate rows: Present (exact count not stated)
+- Invalid guest records: Present
+
+### After Cleaning
+- All missing values in critical columns resolved.
+- All duplicate and invalid guest entries removed.
+- Dataset is now clean and ready for modeling.
+
+---
+
+## Recommendations
+
+### Future Data Collection Improvements
+- Ensure mandatory fields (`adults`, `children`, `babies`, `country`) are not nullable at the source.
+- Enforce constraints to avoid zero-guest entries.
+
+### Ongoing Ma
